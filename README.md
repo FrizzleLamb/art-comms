@@ -136,7 +136,7 @@
   <button class="option-btn" data-dough="#8c211d">red velvet</button>
   </div>
 </div>
-<div id="time-wasted">time wasted since you opened this website: 00:00:00</div>
+<div id="time-wasted">time wasted since you opened this website: 00:00:00 - version 1.0</div>
 <!-- le toppings -->
 <script>
 const container = document.getElementById('donut-container');
