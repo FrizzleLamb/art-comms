@@ -132,7 +132,7 @@
   </div>
   <div class="control-group">
   <button class="option-btn active" data-dough="#fcdbac">regular</button>
-  <button class="option-btn" data-dough="#814517">chocolate</button>
+  <button class="option-btn" data-dough="#4e321d">chocolate</button>
   <button class="option-btn" data-dough="#8c211d">red velvet</button>
   </div>
 </div>
