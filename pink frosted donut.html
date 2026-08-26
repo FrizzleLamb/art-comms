@@ -124,11 +124,16 @@
   <div class="control-group">
     <button class="option-btn active" data-frosting="#ff8fc7">pink</button>
     <button class="option-btn" data-frosting="#6b3f2a">chocolate</button>
-    <button class="option-btn" data-frosting="#fdf6ec">vanilla</button>
+    <button class="option-btn" data-frosting="#fbeeda">coom</button>
   </div>
   <div class="control-group">
     <button class="option-btn active" data-shape="long">sprinkles</button>
     <button class="option-btn" data-shape="dot">nonpareils</button>
+  </div>
+  <div class="control-group">
+  <button class="option-btn active" data-dough="#fcdbac">regular</button>
+  <button class="option-btn" data-dough="#814517">chocolate</button>
+  <button class="option-btn" data-dough="#8c211d">red velvet</button>
   </div>
 </div>
 <div id="time-wasted">time wasted since you opened this website: 00:00:00</div>
@@ -191,6 +196,16 @@ function updateTimer() {
 }
 
 setInterval(updateTimer, 1000);
+
+const donut = document.getElementById('donut');
+
+document.querySelectorAll('[data-dough]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('[data-dough]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    donut.style.background = btn.dataset.dough;
+  });
+});
 </script>
 </body>
 </html>
