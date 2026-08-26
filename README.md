@@ -92,6 +92,18 @@
     height: 8px;
     border-radius: 50%;
   }
+
+/* timer */
+#time-wasted {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: red;
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  font-size: 16px;
+  margin: 0;
+}
 </style>
 </head>
 <body>
@@ -119,11 +131,12 @@
     <button class="option-btn" data-shape="dot">nonpareils</button>
   </div>
 </div>
+<div id="time-wasted">time wasted since you opened this website: 00:00:00</div>
 <!-- le toppings -->
 <script>
 const container = document.getElementById('donut-container');
 const frostingMain = document.getElementById('frosting-main');
-const colors = ['#f7f4f4', '#fff562', '#2799d8', '#39a126', '#e7484c', '#ff741a', '#402626', '#ff69b4',];
+const colors = ['#f7f4f4', '#fff562', '#2799d8', '#39a126', '#e7484c', '#ff741a', '#402626', '#ff4fa7',];
 let currentShape = 'long';
 document.querySelectorAll('[data-frosting]').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -162,6 +175,22 @@ container.addEventListener('click', (e) => {
   }
   container.appendChild(sprinkle);
 });
+
+const startTime = Date.now();
+const timeWastedEl = document.getElementById('time-wasted');
+
+function updateTimer() {
+  const elapsedMs = Date.now() - startTime;
+  const totalSeconds = Math.floor(elapsedMs / 1000);
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+
+  const pad = (num) => String(num).padStart(2, '0');
+  timeWastedEl.textContent = `time wasted since you opened this website: ${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+}
+
+setInterval(updateTimer, 1000);
 </script>
 </body>
 </html>
