@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>i like donuts</title>
+<link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
 <style>
   body {
     display: flex;
@@ -13,7 +14,7 @@
     margin: 0;
     background: #fff;
     gap: 16px;
-    font-family: "Comic Sans MS", "Comic Sans", cursive;
+    font-family: "Comic Sans MS", "Comic Sans",;
   }
   .controls {
     display: flex;
@@ -39,13 +40,16 @@
     font-weight: bold;
   }
   #donut-container {
-    position: relative;
-    width: 300px;
-    height: 300px;
-    cursor: pointer;
-    /* ts the donut shadow */
-    filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.18));
-  }
+  position: relative;
+  width: 300px;
+  height: 300px;
+  cursor: pointer;
+  filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.18));
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
   /* the "bread" layer */
   #donut {
     width: 100%;
@@ -100,7 +104,7 @@
   left: 50%;
   transform: translateX(-50%);
   color: red;
-  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  font-family: "Comic Sans MS", "Comic Sans",;
   font-size: 16px;
   margin: 0;
 }
