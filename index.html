@@ -89,24 +89,24 @@
 
   /* center: donut */
   #donut-container {
-  position: relative;
-  width: 300px;
-  height: 300px;
-  max-width: 80vw;
-  max-height: 80vw;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  -webkit-touch-callout: none;
-  user-select: none;
-  -webkit-user-select: none;
-  flex-shrink: 0;
-  mask: url(#hole-mask);
-  -webkit-mask: url(#hole-mask);
-  mask-size: 100% 100%;
-  -webkit-mask-size: 100% 100%;
-  mask-repeat: no-repeat;
-  -webkit-mask-repeat: no-repeat;
-}
+    position: relative;
+    width: 300px;
+    height: 300px;
+    max-width: 80vw;
+    max-height: 80vw;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    user-select: none;
+    -webkit-user-select: none;
+    flex-shrink: 0;
+    mask: url(#hole-mask);
+    -webkit-mask: url(#hole-mask);
+    mask-size: 100% 100%;
+    -webkit-mask-size: 100% 100%;
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+  }
   #donut {
     width: 100%;
     height: 100%;
@@ -116,16 +116,16 @@
     position: relative;
   }
   #donut::after {
-  content: "";
-  position: absolute;
-  top: 41%;
-  left: 41%;
-  width: 18%;
-  height: 18%;
-  background: #83E1D7;
-  border-radius: 50%;
-  box-shadow: inset 0 5px 10px rgba(0,0,0,0.08), 0 0 10px rgba(0,0,0,0.12);
-}
+    content: "";
+    position: absolute;
+    top: 41%;
+    left: 41%;
+    width: 18%;
+    height: 18%;
+    background: #83E1D7;
+    border-radius: 50%;
+    box-shadow: inset 0 5px 10px rgba(0,0,0,0.08), 0 0 10px rgba(0,0,0,0.12);
+  }
   #frosting-svg {
     position: absolute;
     top: 0;
@@ -150,6 +150,10 @@
     height: 8px;
     border-radius: 50%;
   }
+  /* pebbles: size/border-radius set randomly per instance in JS, this is just a base */
+  .sprinkle.pebble {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  }
 
   /* right: controls box */
   .controls-box {
@@ -171,6 +175,26 @@
     font-size: 12px;
     color: #6b5423;
     font-weight: bold;
+  }
+  .control-group .label-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+  }
+  .clear-mini-btn {
+    font-size: 12px;
+    font-weight: bold;
+    color: #c0392b;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    padding: 0;
+    text-decoration: underline;
+  }
+  .clear-mini-btn:hover {
+    color: #8e2a1f;
   }
 
   /* BUTTONS */
@@ -210,7 +234,7 @@
     padding: 0 12px;
   }
 
-  /* ts should be the mobile fix */
+  /* mobile fix */
   @media (max-width: 700px) {
     body {
       padding: 24px 12px 90px;
@@ -269,22 +293,28 @@
     <div id="donut"></div>
     <svg id="frosting-svg" viewBox="0 0 300 300">
       <defs>
-  <filter id="squiggly" x="-20%" y="-20%" width="140%" height="140%">
-    <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="2" seed="7" result="noise" />
-    <feDisplacementMap in="SourceGraphic" in2="noise" scale="14" xChannelSelector="R" yChannelSelector="G" />
-  </filter>
-  <radialGradient id="hole-shadow-gradient" cx="50%" cy="50%" r="50%">
-  <stop offset="55%" stop-color="#83E1D7" stop-opacity="1" />
-  <stop offset="100%" stop-color="#000000" stop-opacity="0.18" />
-</radialGradient>
-  <mask id="hole-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="300" height="300">
-    <rect x="0" y="0" width="300" height="300" fill="white" />
-    <circle cx="150" cy="150" r="27" fill="black" filter="url(#squiggly)" />
-  </mask>
+        <filter id="squiggly" x="-20%" y="-20%" width="140%" height="140%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="2" seed="7" result="noise" />
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="14" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+        <radialGradient id="hole-shadow-gradient" cx="50%" cy="50%" r="50%">
+          <stop offset="55%" stop-color="#83E1D7" stop-opacity="1" />
+          <stop offset="100%" stop-color="#000000" stop-opacity="0.18" />
+        </radialGradient>
+        <mask id="hole-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="300" height="300">
+          <rect x="0" y="0" width="300" height="300" fill="white" />
+          <circle cx="150" cy="150" r="27" fill="black" filter="url(#squiggly)" />
+        </mask>
+        <!-- NEW: tiny dot pattern for cinnamon flavor -->
+        <pattern id="cinnamon-dots" width="9" height="9" patternUnits="userSpaceOnUse">
+          <circle cx="4.5" cy="4.5" r="0.9" fill="rgba(80,45,15,0.55)" />
+        </pattern>
       </defs>
-<circle id="frosting-main" cx="150" cy="150" r="140" fill="#ff8fc7" filter="url(#squiggly)" />
-<circle cx="150" cy="150" r="140" fill="url(#frosting-shadow-gradient)" filter="url(#squiggly)" pointer-events="none" />
-<circle id="frosting-hole" cx="150" cy="150" r="27" fill="#83E1D7" />
+      <circle id="frosting-main" cx="150" cy="150" r="140" fill="#ff8fc7" fill-opacity="1" filter="url(#squiggly)" />
+      <!-- NEW: cinnamon dot texture, hidden unless cinnamon is selected -->
+      <circle id="cinnamon-overlay" cx="150" cy="150" r="140" fill="url(#cinnamon-dots)" filter="url(#squiggly)" opacity="0" pointer-events="none" />
+      <circle cx="150" cy="150" r="140" fill="url(#frosting-shadow-gradient)" filter="url(#squiggly)" pointer-events="none" />
+      <circle id="frosting-hole" cx="150" cy="150" r="27" fill="#83E1D7" />
     </svg>
   </div>
 
@@ -292,14 +322,21 @@
   <div class="controls-box">
     <div class="control-group">
       <span class="label">frosting</span>
-      <button class="option-btn active" data-frosting="#ff8fc7">pink</button>
+      <button class="option-btn active" data-frosting="#ff8fc7">strawberry</button>
       <button class="option-btn" data-frosting="#6b3f2a">chocolate</button>
       <button class="option-btn" data-frosting="#fbeeda">vanilla</button>
+      <button class="option-btn" data-frosting="#fff8f0" data-opacity="0.3">glazed</button>
+      <button class="option-btn" data-frosting="#a5713a" data-cinnamon="true">cinnamon</button>
     </div>
     <div class="control-group">
-      <span class="label">topping</span>
+      <div class="label-row">
+        <span class="label">toppings </span>
+        <button id="clear-btn" class="clear-mini-btn">(clear)</button>
+      </div>
       <button class="option-btn active" data-shape="long">sprinkles</button>
       <button class="option-btn" data-shape="dot">nonpareils</button>
+      <button class="option-btn" data-shape="pebble">pebbles</button>
+      <button class="option-btn" data-shape="jimmies">jimmies</button>
     </div>
     <div class="control-group">
       <span class="label">dough</span>
@@ -311,21 +348,33 @@
 
 </div>
 
-<div id="time-wasted">time wasted since you opened this website: 00:00:00 - version 1.1</div>
+<div id="time-wasted">time wasted since you opened this website: 00:00:00 - version 1.2</div>
 
 <!-- le toppings -->
 <script>
 const container = document.getElementById('donut-container');
 const frostingMain = document.getElementById('frosting-main');
+const cinnamonOverlay = document.getElementById('cinnamon-overlay');
 const colors = ['#f7f4f4', '#fff562', '#2799d8', '#39a126', '#e7484c', '#ff741a', '#402626', '#ff4fa7',];
+const chocolateColors = ['#6b3f2a', '#4e321d', '#7a4a2a', '#3d2415', '#8b5a2b'];
+const pebbleShapes = [
+  '40% 60% 55% 45% / 50% 45% 55% 50%',
+  '60% 40% 45% 55% / 45% 55% 40% 60%',
+  '50% 50% 65% 35% / 40% 60% 40% 60%',
+  '35% 65% 40% 60% / 60% 40% 65% 35%'
+];
 let currentShape = 'long';
+
 document.querySelectorAll('[data-frosting]').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('[data-frosting]').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     frostingMain.setAttribute('fill', btn.dataset.frosting);
+    frostingMain.setAttribute('fill-opacity', btn.dataset.opacity || 1);
+    cinnamonOverlay.setAttribute('opacity', btn.dataset.cinnamon ? 1 : 0);
   });
 });
+
 document.querySelectorAll('[data-shape]').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('[data-shape]').forEach(b => b.classList.remove('active'));
@@ -350,9 +399,9 @@ container.addEventListener('click', (e) => {
 
   const roll = Math.random();
   let sprinkleCount;
-  if (roll < 0.6) {
+  if (roll < 0.4) {
     sprinkleCount = 1;
-  } else if (roll < 0.9) {
+  } else if (roll < 0.7) {
     sprinkleCount = 2;
   } else {
     sprinkleCount = 3;
@@ -361,15 +410,33 @@ container.addEventListener('click', (e) => {
   for (let i = 0; i < sprinkleCount; i++) {
     const offsetX = x + (Math.random() * 16 - 8);
     const offsetY = y + (Math.random() * 16 - 8);
-
     const sprinkle = document.createElement('div');
-    sprinkle.className = currentShape === 'dot' ? 'sprinkle dot' : 'sprinkle';
     sprinkle.style.left = `${offsetX}px`;
     sprinkle.style.top = `${offsetY}px`;
-    sprinkle.style.background = colors[Math.floor(Math.random() * colors.length)];
-    if (currentShape === 'long') {
+
+    if (currentShape === 'dot') {
+      sprinkle.className = 'sprinkle dot';
+      sprinkle.style.background = colors[Math.floor(Math.random() * colors.length)];
+
+    } else if (currentShape === 'pebble') {
+      sprinkle.className = 'sprinkle pebble';
+      sprinkle.style.background = colors[Math.floor(Math.random() * colors.length)];
+      sprinkle.style.borderRadius = pebbleShapes[Math.floor(Math.random() * pebbleShapes.length)];
+      const size = 9 + Math.random() * 5;
+      sprinkle.style.width = `${size}px`;
+      sprinkle.style.height = `${size * (0.75 + Math.random() * 0.4)}px`;
+
+    } else if (currentShape === 'jimmies') {
+      sprinkle.className = 'sprinkle';
+      sprinkle.style.background = chocolateColors[Math.floor(Math.random() * chocolateColors.length)];
+      sprinkle.style.transform = `rotate(${Math.random() * 360}deg)`;
+
+    } else {
+      sprinkle.className = 'sprinkle';
+      sprinkle.style.background = colors[Math.floor(Math.random() * colors.length)];
       sprinkle.style.transform = `rotate(${Math.random() * 360}deg)`;
     }
+
     container.appendChild(sprinkle);
   }
 });
@@ -383,7 +450,6 @@ function updateTimer() {
   const hours = Math.floor(totalSeconds / 3600);
   const minutes = Math.floor((totalSeconds % 3600) / 60);
   const seconds = totalSeconds % 60;
-
   const pad = (num) => String(num).padStart(2, '0');
   timeWastedEl.textContent = `time wasted since you opened this website: ${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
 }
@@ -398,6 +464,10 @@ document.querySelectorAll('[data-dough]').forEach(btn => {
     btn.classList.add('active');
     donut.style.background = btn.dataset.dough;
   });
+});
+
+document.getElementById('clear-btn').addEventListener('click', () => {
+  document.querySelectorAll('.sprinkle').forEach(s => s.remove());
 });
 </script>
 </body>
