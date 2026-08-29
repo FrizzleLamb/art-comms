@@ -18,7 +18,12 @@
     min-height: 100vh;
     margin: 0;
     padding: 32px 16px 80px;
-    background: #83E1D7;
+    background-image:
+      radial-gradient(#6fd4c7 15%, transparent 16%),
+      radial-gradient(ellipse 120% 20% at bottom, #5cc9bb 0%, transparent 100%);
+    background-size: 40px 40px, 100% 100%;
+    background-color: #83E1D7;
+    background-attachment: fixed;
     gap: 32px;
     font-family: "Comic Sans MS", "Comic Sans";
   }
@@ -84,18 +89,24 @@
 
   /* center: donut */
   #donut-container {
-    position: relative;
-    width: 300px;
-    height: 300px;
-    max-width: 80vw;
-    max-height: 80vw;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-    -webkit-touch-callout: none;
-    user-select: none;
-    -webkit-user-select: none;
-    flex-shrink: 0;
-  }
+  position: relative;
+  width: 300px;
+  height: 300px;
+  max-width: 80vw;
+  max-height: 80vw;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  user-select: none;
+  -webkit-user-select: none;
+  flex-shrink: 0;
+  mask: url(#hole-mask);
+  -webkit-mask: url(#hole-mask);
+  mask-size: 100% 100%;
+  -webkit-mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+}
   #donut {
     width: 100%;
     height: 100%;
@@ -266,7 +277,11 @@
   <stop offset="55%" stop-color="#83E1D7" stop-opacity="1" />
   <stop offset="100%" stop-color="#000000" stop-opacity="0.18" />
 </radialGradient>
-</defs>
+  <mask id="hole-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="300" height="300">
+    <rect x="0" y="0" width="300" height="300" fill="white" />
+    <circle cx="150" cy="150" r="27" fill="black" filter="url(#squiggly)" />
+  </mask>
+      </defs>
 <circle id="frosting-main" cx="150" cy="150" r="140" fill="#ff8fc7" filter="url(#squiggly)" />
 <circle cx="150" cy="150" r="140" fill="url(#frosting-shadow-gradient)" filter="url(#squiggly)" pointer-events="none" />
 <circle id="frosting-hole" cx="150" cy="150" r="27" fill="#83E1D7" />
