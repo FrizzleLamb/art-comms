@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="favicon.png">
-<title>@FrizzleLamb's Socials & Commission Hub</title>
+<title>FrizzleLamb's Socials & Commissions</title>
 <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
 <style>
   * {
@@ -14,27 +14,25 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     min-height: 100vh;
     margin: 0;
-    padding: 32px 16px 80px;
+    padding: 48px 16px 80px;
     background-image:
       radial-gradient(#6fd4c7 15%, transparent 16%),
       radial-gradient(ellipse 120% 20% at bottom, #5cc9bb 0%, transparent 100%);
     background-size: 40px 40px, 100% 100%;
     background-color: #83E1D7;
     background-attachment: fixed;
-    gap: 32px;
+    gap: 48px;
     font-family: "Comic Sans MS", "Comic Sans";
   }
-
   /* header */
   .header {
     text-align: center;
   }
   .header h1 {
     margin: 0;
-    font-size: 32px;
+    font-size: 34px;
     color: #063B26;
   }
   .header p {
@@ -42,68 +40,80 @@
     font-size: 16px;
     color: #0a5c40;
   }
-
-  /* main 3-column layout */
-  .main-layout {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    gap: 40px;
-    flex-wrap: wrap;
-  }
-
-  /* socials box, left */
-  .socials-box {
-    width: 180px;
+  /* TOP: links section, centered, main focus */
+  .links-section {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    padding-top: 40px;
+    align-items: center;
+    gap: 20px;
+    max-width: 500px;
   }
-  .socials-box span.label {
-    font-size: 12px;
+  .link-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .link-group span.label {
+    font-size: 13px;
     color: #0a5c40;
     font-weight: bold;
-    margin-top: 6px;
-    margin-bottom: -2px;
+    letter-spacing: 0.5px;
   }
-  .socials-box span.label:first-child {
-    margin-top: 0;
+  .link-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
   }
-  .socials-box a {
+  .link-row a {
     text-decoration: none;
     color: #3d5c38;
     background: #f0f7ee;
     border: 2px solid #a8d5a2;
-    border-radius: 6px;
-    padding: 8px 12px;
-    font-size: 14px;
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-size: 15px;
     font-family: inherit;
     text-align: center;
-    transition: background 0.15s, border-color 0.15s;
+    transition: background 0.15s, border-color 0.15s, transform 0.15s;
   }
-  .socials-box a:hover {
+  .link-row a:hover {
     background: #dcedd8;
     border-color: #6b9b63;
+    transform: translateY(-2px);
   }
-
-  /* center: donut */
+  /* divider between links and donut sections */
+  .divider {
+    width: 100%;
+    max-width: 500px;
+    border: none;
+    border-top: 2px dashed #5cb8a9;
+    opacity: 0.6;
+  }
+  /* BOTTOM: donut + recipe row */
+  .donut-area {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  /* donut */
   #donut-container {
     position: relative;
-    width: 300px;
-    height: 300px;
-    max-width: 80vw;
-    max-height: 80vw;
+    width: 260px;
+    height: 260px;
+    max-width: 70vw;
+    max-height: 70vw;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
     user-select: none;
     -webkit-user-select: none;
     flex-shrink: 0;
-    mask: url(#hole-mask);
-    -webkit-mask: url(#hole-mask);
-    mask-size: 100% 100%;
-    -webkit-mask-size: 100% 100%;
+    mask-image: radial-gradient(circle closest-side at center, transparent 0, transparent 17%, black 19%, black 100%);
+    -webkit-mask-image: radial-gradient(circle closest-side at center, transparent 0, transparent 17%, black 19%, black 100%);
     mask-repeat: no-repeat;
     -webkit-mask-repeat: no-repeat;
   }
@@ -122,9 +132,7 @@
     left: 41%;
     width: 18%;
     height: 18%;
-    background: #83E1D7;
-    border-radius: 50%;
-    box-shadow: inset 0 5px 10px rgba(0,0,0,0.08), 0 0 10px rgba(0,0,0,0.12);
+    background: transparent;
   }
   #frosting-svg {
     position: absolute;
@@ -132,9 +140,6 @@
     left: 0;
     width: 100%;
     height: 100%;
-  }
-  #frosting-hole {
-    filter: url(#squiggly) drop-shadow(0 0 3px rgba(0, 0, 0, 0.15));
   }
   .sprinkle {
     position: absolute;
@@ -150,17 +155,46 @@
     height: 8px;
     border-radius: 50%;
   }
-  /* pebbles: size/border-radius set randomly per instance in JS, this is just a base */
   .sprinkle.pebble {
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
   }
-
-  /* right: controls box */
-  .controls-box {
-    width: 180px;
-    padding: 16px;
+  /* recipe: collapsible panel beside the donut */
+  .recipe-box {
+    width: 220px;
+  }
+  .recipe-box summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 10px 16px;
     border: 2px solid #e8c873;
     border-radius: 10px;
+    background: #fdf6e3;
+    color: #6b5423;
+    font-weight: bold;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .recipe-box summary::-webkit-details-marker {
+    display: none;
+  }
+  .recipe-box summary::after {
+    content: "▸";
+    transition: transform 0.2s ease;
+  }
+  .recipe-box[open] summary::after {
+    transform: rotate(90deg);
+  }
+  .recipe-box[open] summary {
+    border-radius: 10px 10px 0 0;
+    border-bottom: none;
+  }
+  .recipe-content {
+    padding: 16px;
+    border: 2px solid #e8c873;
+    border-top: none;
+    border-radius: 0 0 10px 10px;
     background: #fdf6e3;
     display: flex;
     flex-direction: column;
@@ -196,13 +230,12 @@
   .clear-mini-btn:hover {
     color: #8e2a1f;
   }
-
   /* BUTTONS */
   button.option-btn {
     padding: 6px 12px;
     border: 2px solid #e8c873;
     border-radius: 6px;
-    background: #fdf6e3;
+    background: #fff;
     color: #6b5423;
     cursor: pointer;
     font-size: 13px;
@@ -219,7 +252,6 @@
     color: #4a3a10;
     font-weight: bold;
   }
-
   /* timer */
   #time-wasted {
     position: fixed;
@@ -233,12 +265,11 @@
     text-align: center;
     padding: 0 12px;
   }
-
   /* mobile fix */
   @media (max-width: 700px) {
     body {
-      padding: 24px 12px 90px;
-      gap: 24px;
+      padding: 32px 12px 90px;
+      gap: 32px;
     }
     .header h1 {
       font-size: 26px;
@@ -246,20 +277,14 @@
     .header p {
       font-size: 14px;
     }
-    .main-layout {
+    .donut-area {
       flex-direction: column;
       align-items: center;
-      gap: 24px;
+      gap: 20px;
     }
-    .socials-box {
-      padding-top: 0;
-      order: 2;
-    }
-    #donut-container {
-      order: 1;
-    }
-    .controls-box {
-      order: 3;
+    .recipe-box {
+      width: 100%;
+      max-width: 300px;
     }
     #time-wasted {
       font-size: 12px;
@@ -268,88 +293,90 @@
 </style>
 </head>
 <body>
-
 <div class="header">
   <h1>@FrizzleLamb</h1>
   <p>Hello! I'm FrizzleLamb. I like to do digital art and eat cheesecakes.</p>
 </div>
-
-<div class="main-layout">
-
-  <!-- LEFT: socials -->
-  <div class="socials-box">
+<!-- TOP: links, centered and prominent -->
+<div class="links-section">
+  <div class="link-group">
     <span class="label">where you can commission</span>
-    <a href="https://vgen.co/FrizzleLamb">vgen</a>
-    <a href="https://ko-fi.com/frizzlelamb">ko-fi</a>
-    <a href="https://paypal.me/frizzleshillings">paypal</a>
-    <span class="label">where i post art</span>
-    <a href="https://x.com/FrizzleLamb">twitter</a>
-    <a href="https://bsky.app/profile/frizzlelamb.bsky.social">bluesky</a>
-    <a href="https://www.pixiv.net/en/users/65300551">pixiv</a>
+    <div class="link-row">
+      <a href="https://vgen.co/FrizzleLamb">vgen</a>
+      <a href="https://ko-fi.com/frizzlelamb">ko-fi</a>
+      <a href="https://paypal.me/frizzleshillings">paypal</a>
+    </div>
   </div>
-
-  <!-- CENTER: donut -->
+  <div class="link-group">
+    <span class="label">where i post art</span>
+    <div class="link-row">
+      <a href="https://x.com/FrizzleLamb">twitter</a>
+      <a href="https://bsky.app/profile/frizzlelamb.bsky.social">bluesky</a>
+      <a href="https://www.pixiv.net/en/users/65300551">pixiv</a>
+    </div>
+  </div>
+</div>
+<hr class="divider">
+<!-- BOTTOM: donut + collapsible recipe -->
+<div class="donut-area">
   <div id="donut-container">
     <div id="donut"></div>
     <svg id="frosting-svg" viewBox="0 0 300 300">
-      <defs>
-        <filter id="squiggly" x="-20%" y="-20%" width="140%" height="140%">
-          <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="2" seed="7" result="noise" />
-          <feDisplacementMap in="SourceGraphic" in2="noise" scale="14" xChannelSelector="R" yChannelSelector="G" />
-        </filter>
-        <radialGradient id="hole-shadow-gradient" cx="50%" cy="50%" r="50%">
-          <stop offset="55%" stop-color="#83E1D7" stop-opacity="1" />
-          <stop offset="100%" stop-color="#000000" stop-opacity="0.18" />
-        </radialGradient>
-        <mask id="hole-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="300" height="300">
-          <rect x="0" y="0" width="300" height="300" fill="white" />
-          <circle cx="150" cy="150" r="27" fill="black" filter="url(#squiggly)" />
-        </mask>
-        <!-- NEW: tiny dot pattern for cinnamon flavor -->
-        <pattern id="cinnamon-dots" width="9" height="9" patternUnits="userSpaceOnUse">
-          <circle cx="4.5" cy="4.5" r="0.9" fill="rgba(80,45,15,0.55)" />
-        </pattern>
-      </defs>
-      <circle id="frosting-main" cx="150" cy="150" r="140" fill="#ff8fc7" fill-opacity="1" filter="url(#squiggly)" />
-      <!-- NEW: cinnamon dot texture, hidden unless cinnamon is selected -->
-      <circle id="cinnamon-overlay" cx="150" cy="150" r="140" fill="url(#cinnamon-dots)" filter="url(#squiggly)" opacity="0" pointer-events="none" />
-      <circle cx="150" cy="150" r="140" fill="url(#frosting-shadow-gradient)" filter="url(#squiggly)" pointer-events="none" />
-      <circle id="frosting-hole" cx="150" cy="150" r="27" fill="#83E1D7" />
+<defs>
+  <filter id="squiggly" x="-20%" y="-20%" width="140%" height="140%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="2" seed="7" result="noise" />
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="14" xChannelSelector="R" yChannelSelector="G" />
+  </filter>
+  <radialGradient id="frosting-shadow-gradient" cx="50%" cy="50%" r="50%">
+    <stop offset="93%" stop-color="#000000" stop-opacity="0" />
+    <stop offset="100%" stop-color="#000000" stop-opacity="0.05" />
+  </radialGradient>
+  <radialGradient id="inner-hole-shadow" cx="50%" cy="50%" r="50%">
+    <stop offset="45%" stop-color="#000000" stop-opacity="0" />
+    <stop offset="58%" stop-color="#000000" stop-opacity="0.15" />
+    <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+  </radialGradient>
+  <pattern id="cinnamon-dots" width="9" height="9" patternUnits="userSpaceOnUse">
+    <circle cx="4.5" cy="4.5" r="0.9" fill="rgba(80,45,15,0.55)" />
+  </pattern>
+</defs>
+<circle id="frosting-main" cx="150" cy="150" r="140" fill="#ff8fc7" fill-opacity="1" filter="url(#squiggly)" />
+<circle id="cinnamon-overlay" cx="150" cy="150" r="140" fill="url(#cinnamon-dots)" filter="url(#squiggly)" opacity="0" pointer-events="none" />
+<circle cx="150" cy="150" r="140" fill="url(#frosting-shadow-gradient)" filter="url(#squiggly)" pointer-events="none" />
+<circle cx="50%" cy="50%" r="12%" fill="url(#inner-hole-shadow)" filter="url(#squiggly)" pointer-events="none" />
     </svg>
   </div>
-
-  <!-- RIGHT: controls -->
-  <div class="controls-box">
-    <div class="control-group">
-      <span class="label">frosting</span>
-      <button class="option-btn active" data-frosting="#ff8fc7">strawberry</button>
-      <button class="option-btn" data-frosting="#6b3f2a">chocolate</button>
-      <button class="option-btn" data-frosting="#fbeeda">vanilla</button>
-      <button class="option-btn" data-frosting="#fff8f0" data-opacity="0.3">glazed</button>
-      <button class="option-btn" data-frosting="#a5713a" data-cinnamon="true">cinnamon</button>
-    </div>
-    <div class="control-group">
-      <div class="label-row">
-        <span class="label">toppings </span>
-        <button id="clear-btn" class="clear-mini-btn">(clear)</button>
+  <details class="recipe-box">
+    <summary>design this donut</summary>
+    <div class="recipe-content">
+      <div class="control-group">
+        <span class="label">frosting</span>
+        <button class="option-btn active" data-frosting="#ff8fc7">strawberry</button>
+        <button class="option-btn" data-frosting="#6b3f2a">chocolate</button>
+        <button class="option-btn" data-frosting="#fbeeda">vanilla</button>
+        <button class="option-btn" data-frosting="#fff8f0" data-opacity="0.3">glazed</button>
+        <button class="option-btn" data-frosting="#a5713a" data-cinnamon="true">cinnamon</button>
       </div>
-      <button class="option-btn active" data-shape="long">sprinkles</button>
-      <button class="option-btn" data-shape="dot">nonpareils</button>
-      <button class="option-btn" data-shape="pebble">pebbles</button>
-      <button class="option-btn" data-shape="jimmies">jimmies</button>
+      <div class="control-group">
+        <div class="label-row">
+          <span class="label">toppings </span>
+          <button id="clear-btn" class="clear-mini-btn">(clear)</button>
+        </div>
+        <button class="option-btn active" data-shape="long">sprinkles</button>
+        <button class="option-btn" data-shape="dot">nonpareils</button>
+        <button class="option-btn" data-shape="pebble">pebbles</button>
+        <button class="option-btn" data-shape="jimmies">jimmies</button>
+      </div>
+      <div class="control-group">
+        <span class="label">dough</span>
+        <button class="option-btn active" data-dough="#fcdbac">regular</button>
+        <button class="option-btn" data-dough="#4e321d">chocolate</button>
+        <button class="option-btn" data-dough="#8c211d">red velvet</button>
+      </div>
     </div>
-    <div class="control-group">
-      <span class="label">dough</span>
-      <button class="option-btn active" data-dough="#fcdbac">regular</button>
-      <button class="option-btn" data-dough="#4e321d">chocolate</button>
-      <button class="option-btn" data-dough="#8c211d">red velvet</button>
-    </div>
-  </div>
-
+  </details>
 </div>
-
-<div id="time-wasted">time wasted since you opened this website: 00:00:00 - version 1.2</div>
-
+<div id="time-wasted">time wasted since you opened this website: 00:00:00 - version 1.3</div>
 <!-- le toppings -->
 <script>
 const container = document.getElementById('donut-container');
@@ -364,7 +391,6 @@ const pebbleShapes = [
   '35% 65% 40% 60% / 60% 40% 65% 35%'
 ];
 let currentShape = 'long';
-
 document.querySelectorAll('[data-frosting]').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('[data-frosting]').forEach(b => b.classList.remove('active'));
@@ -374,7 +400,6 @@ document.querySelectorAll('[data-frosting]').forEach(btn => {
     cinnamonOverlay.setAttribute('opacity', btn.dataset.cinnamon ? 1 : 0);
   });
 });
-
 document.querySelectorAll('[data-shape]').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('[data-shape]').forEach(b => b.classList.remove('active'));
@@ -382,7 +407,6 @@ document.querySelectorAll('[data-shape]').forEach(btn => {
     currentShape = btn.dataset.shape;
   });
 });
-
 container.addEventListener('click', (e) => {
   const rect = container.getBoundingClientRect();
   const x = e.clientX - rect.left;
@@ -396,7 +420,6 @@ container.addEventListener('click', (e) => {
   if (distance < holeRadius) {
     return;
   }
-
   const roll = Math.random();
   let sprinkleCount;
   if (roll < 0.4) {
@@ -406,18 +429,15 @@ container.addEventListener('click', (e) => {
   } else {
     sprinkleCount = 3;
   }
-
   for (let i = 0; i < sprinkleCount; i++) {
     const offsetX = x + (Math.random() * 16 - 8);
     const offsetY = y + (Math.random() * 16 - 8);
     const sprinkle = document.createElement('div');
     sprinkle.style.left = `${offsetX}px`;
     sprinkle.style.top = `${offsetY}px`;
-
     if (currentShape === 'dot') {
       sprinkle.className = 'sprinkle dot';
       sprinkle.style.background = colors[Math.floor(Math.random() * colors.length)];
-
     } else if (currentShape === 'pebble') {
       sprinkle.className = 'sprinkle pebble';
       sprinkle.style.background = colors[Math.floor(Math.random() * colors.length)];
@@ -425,25 +445,20 @@ container.addEventListener('click', (e) => {
       const size = 9 + Math.random() * 5;
       sprinkle.style.width = `${size}px`;
       sprinkle.style.height = `${size * (0.75 + Math.random() * 0.4)}px`;
-
     } else if (currentShape === 'jimmies') {
       sprinkle.className = 'sprinkle';
       sprinkle.style.background = chocolateColors[Math.floor(Math.random() * chocolateColors.length)];
       sprinkle.style.transform = `rotate(${Math.random() * 360}deg)`;
-
     } else {
       sprinkle.className = 'sprinkle';
       sprinkle.style.background = colors[Math.floor(Math.random() * colors.length)];
       sprinkle.style.transform = `rotate(${Math.random() * 360}deg)`;
     }
-
     container.appendChild(sprinkle);
   }
 });
-
 const startTime = Date.now();
 const timeWastedEl = document.getElementById('time-wasted');
-
 function updateTimer() {
   const elapsedMs = Date.now() - startTime;
   const totalSeconds = Math.floor(elapsedMs / 1000);
@@ -453,11 +468,8 @@ function updateTimer() {
   const pad = (num) => String(num).padStart(2, '0');
   timeWastedEl.textContent = `time wasted since you opened this website: ${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
 }
-
 setInterval(updateTimer, 1000);
-
 const donut = document.getElementById('donut');
-
 document.querySelectorAll('[data-dough]').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('[data-dough]').forEach(b => b.classList.remove('active'));
@@ -465,7 +477,6 @@ document.querySelectorAll('[data-dough]').forEach(btn => {
     donut.style.background = btn.dataset.dough;
   });
 });
-
 document.getElementById('clear-btn').addEventListener('click', () => {
   document.querySelectorAll('.sprinkle').forEach(s => s.remove());
 });
