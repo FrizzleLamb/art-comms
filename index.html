@@ -10,20 +10,24 @@
   * {
     box-sizing: border-box;
   }
+  html, body {
+    height: 100%;
+  }
   body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     min-height: 100vh;
     margin: 0;
-    padding: 48px 16px 80px;
+    padding: 32px 16px 80px;
     background-image:
       radial-gradient(#6fd4c7 15%, transparent 16%),
       radial-gradient(ellipse 120% 20% at bottom, #5cc9bb 0%, transparent 100%);
     background-size: 40px 40px, 100% 100%;
     background-color: #83E1D7;
     background-attachment: fixed;
-    gap: 48px;
+    gap: 40px;
     font-family: "Comic Sans MS", "Comic Sans";
   }
   /* header */
@@ -40,7 +44,7 @@
     font-size: 16px;
     color: #0a5c40;
   }
-  /* TOP: links section, centered, main focus */
+  /* links */
   .links-section {
     display: flex;
     flex-direction: column;
@@ -91,21 +95,104 @@
     border-top: 2px dashed #5cb8a9;
     opacity: 0.6;
   }
-  /* BOTTOM: donut + recipe row */
-  .donut-area {
+
+  /* donut toggle */
+  .donut-toggle {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: #fdf6e3;
+    border: 2px solid #e8c873;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.15s, border-color 0.15s, transform 0.15s;
+  }
+  .donut-toggle:hover {
+    background: #f7ecc8;
+    transform: scale(1.05);
+  }
+  .donut-toggle .emoji {
+    font-size: 32px;
+    line-height: 1;
+    display: block;
+  }
+
+  /* donut overlay */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(6, 40, 30, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.18s ease;
+    z-index: 100;
+  }
+  .modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .donut-modal {
+    position: relative;
+    width: 100%;
+    max-width: 460px;
+    max-height: 85vh;
+    overflow-y: auto;
+    background: #fdf6e3;
+    border: 2px solid #e8c873;
+    border-radius: 14px;
+    padding: 28px 20px 20px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+    transform: scale(0.96);
+    transition: transform 0.18s ease;
+  }
+  .modal-overlay.active .donut-modal {
+    transform: scale(1);
+  }
+  .modal-close {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    line-height: 1;
+    color: #6b5423;
+    cursor: pointer;
+    padding: 4px;
+  }
+  .modal-close:hover {
+    color: #4a3a10;
+  }
+  .modal-title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 15px;
+    color: #6b5423;
+    margin: 0 0 16px;
+  }
+
+  .panel-content {
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    gap: 32px;
+    gap: 28px;
     flex-wrap: wrap;
   }
+
   /* donut */
   #donut-container {
     position: relative;
-    width: 260px;
-    height: 260px;
-    max-width: 70vw;
-    max-height: 70vw;
+    width: 220px;
+    height: 220px;
+    max-width: 60vw;
+    max-height: 60vw;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
@@ -121,18 +208,9 @@
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background: #fcdbac;
+    background: #f2a570;
     box-shadow: inset 0 0 22px rgba(0, 0, 0, 0.25);
     position: relative;
-  }
-  #donut::after {
-    content: "";
-    position: absolute;
-    top: 41%;
-    left: 41%;
-    width: 18%;
-    height: 18%;
-    background: transparent;
   }
   #frosting-svg {
     position: absolute;
@@ -158,44 +236,10 @@
   .sprinkle.pebble {
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
   }
-  /* recipe: collapsible panel beside the donut */
-  .recipe-box {
-    width: 220px;
-  }
-  .recipe-box summary {
-    list-style: none;
-    cursor: pointer;
-    padding: 10px 16px;
-    border: 2px solid #e8c873;
-    border-radius: 10px;
-    background: #fdf6e3;
-    color: #6b5423;
-    font-weight: bold;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .recipe-box summary::-webkit-details-marker {
-    display: none;
-  }
-  .recipe-box summary::after {
-    content: "▸";
-    transition: transform 0.2s ease;
-  }
-  .recipe-box[open] summary::after {
-    transform: rotate(90deg);
-  }
-  .recipe-box[open] summary {
-    border-radius: 10px 10px 0 0;
-    border-bottom: none;
-  }
+
+  /* controls beside the donut */
   .recipe-content {
-    padding: 16px;
-    border: 2px solid #e8c873;
-    border-top: none;
-    border-radius: 0 0 10px 10px;
-    background: #fdf6e3;
+    width: 150px;
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -230,7 +274,6 @@
   .clear-mini-btn:hover {
     color: #8e2a1f;
   }
-  /* BUTTONS */
   button.option-btn {
     padding: 6px 12px;
     border: 2px solid #e8c873;
@@ -252,6 +295,7 @@
     color: #4a3a10;
     font-weight: bold;
   }
+
   /* timer */
   #time-wasted {
     position: fixed;
@@ -265,11 +309,12 @@
     text-align: center;
     padding: 0 12px;
   }
+
   /* mobile fix */
   @media (max-width: 700px) {
     body {
-      padding: 32px 12px 90px;
-      gap: 32px;
+      padding: 24px 12px 90px;
+      gap: 28px;
     }
     .header h1 {
       font-size: 26px;
@@ -277,14 +322,14 @@
     .header p {
       font-size: 14px;
     }
-    .donut-area {
+    .panel-content {
       flex-direction: column;
       align-items: center;
       gap: 20px;
     }
-    .recipe-box {
+    .recipe-content {
       width: 100%;
-      max-width: 300px;
+      max-width: 260px;
     }
     #time-wasted {
       font-size: 12px;
@@ -297,7 +342,7 @@
   <h1>@FrizzleLamb</h1>
   <p>Hello! I'm FrizzleLamb. I like to do digital art and eat cheesecakes.</p>
 </div>
-<!-- TOP: links, centered and prominent -->
+<!-- TOP -->
 <div class="links-section">
   <div class="link-group">
     <span class="label">where you can commission</span>
@@ -317,11 +362,20 @@
   </div>
 </div>
 <hr class="divider">
-<!-- BOTTOM: donut + collapsible recipe -->
-<div class="donut-area">
-  <div id="donut-container">
-    <div id="donut"></div>
-    <svg id="frosting-svg" viewBox="0 0 300 300">
+<!-- BOTTOM: icon toggle button -->
+<button id="donut-toggle-btn" class="donut-toggle" aria-label="design this donut" aria-haspopup="dialog" aria-expanded="false">
+  <span class="emoji" aria-hidden="true">🍩</span>
+</button>
+
+<!-- popup for the donut -->
+<div id="donut-modal-overlay" class="modal-overlay">
+  <div class="donut-modal" role="dialog" aria-modal="true" aria-label="design this donut">
+    <button id="donut-close-btn" class="modal-close" aria-label="close">✕</button>
+    <p class="modal-title">design this donut</p>
+    <div class="panel-content">
+      <div id="donut-container">
+        <div id="donut"></div>
+        <svg id="frosting-svg" viewBox="0 0 300 300">
 <defs>
   <filter id="squiggly" x="-20%" y="-20%" width="140%" height="140%">
     <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="2" seed="7" result="noise" />
@@ -344,41 +398,62 @@
 <circle id="cinnamon-overlay" cx="150" cy="150" r="140" fill="url(#cinnamon-dots)" filter="url(#squiggly)" opacity="0" pointer-events="none" />
 <circle cx="150" cy="150" r="140" fill="url(#frosting-shadow-gradient)" filter="url(#squiggly)" pointer-events="none" />
 <circle cx="50%" cy="50%" r="12%" fill="url(#inner-hole-shadow)" filter="url(#squiggly)" pointer-events="none" />
-    </svg>
-  </div>
-  <details class="recipe-box">
-    <summary>design this donut</summary>
-    <div class="recipe-content">
-      <div class="control-group">
-        <span class="label">frosting</span>
-        <button class="option-btn active" data-frosting="#ff8fc7">strawberry</button>
-        <button class="option-btn" data-frosting="#6b3f2a">chocolate</button>
-        <button class="option-btn" data-frosting="#fbeeda">vanilla</button>
-        <button class="option-btn" data-frosting="#fff8f0" data-opacity="0.3">glazed</button>
-        <button class="option-btn" data-frosting="#a5713a" data-cinnamon="true">cinnamon</button>
+        </svg>
       </div>
-      <div class="control-group">
-        <div class="label-row">
-          <span class="label">toppings </span>
-          <button id="clear-btn" class="clear-mini-btn">(clear)</button>
+      <div class="recipe-content">
+        <div class="control-group">
+          <span class="label">frosting</span>
+          <button class="option-btn active" data-frosting="#ff8fc7">strawberry</button>
+          <button class="option-btn" data-frosting="#6b3f2a">chocolate</button>
+          <button class="option-btn" data-frosting="#fbeeda">vanilla</button>
+          <button class="option-btn" data-frosting="#fff8f0" data-opacity="0.3">glazed</button>
+          <button class="option-btn" data-frosting="#a5713a" data-cinnamon="true">cinnamon</button>
         </div>
-        <button class="option-btn active" data-shape="long">sprinkles</button>
-        <button class="option-btn" data-shape="dot">nonpareils</button>
-        <button class="option-btn" data-shape="pebble">pebbles</button>
-        <button class="option-btn" data-shape="jimmies">jimmies</button>
-      </div>
-      <div class="control-group">
-        <span class="label">dough</span>
-        <button class="option-btn active" data-dough="#fcdbac">regular</button>
-        <button class="option-btn" data-dough="#4e321d">chocolate</button>
-        <button class="option-btn" data-dough="#8c211d">red velvet</button>
+        <div class="control-group">
+          <div class="label-row">
+            <span class="label">toppings </span>
+            <button id="clear-btn" class="clear-mini-btn">(clear)</button>
+          </div>
+          <button class="option-btn active" data-shape="long">sprinkles</button>
+          <button class="option-btn" data-shape="dot">nonpareils</button>
+          <button class="option-btn" data-shape="pebble">pebbles</button>
+          <button class="option-btn" data-shape="jimmies">jimmies</button>
+        </div>
+        <div class="control-group">
+          <span class="label">dough</span>
+          <button class="option-btn active" data-dough="#f2a570">regular</button>
+          <button class="option-btn" data-dough="#4e321d">chocolate</button>
+          <button class="option-btn" data-dough="#8c211d">red velvet</button>
+        </div>
       </div>
     </div>
-  </details>
+  </div>
 </div>
-<div id="time-wasted">time wasted since you opened this website: 00:00:00 - version 1.3</div>
+
+<div id="time-wasted">time wasted since you opened this website: 00:00:00 - version 1.4</div>
 <!-- le toppings -->
 <script>
+const toggleBtn = document.getElementById('donut-toggle-btn');
+const closeBtn = document.getElementById('donut-close-btn');
+const overlay = document.getElementById('donut-modal-overlay');
+
+function openModal() {
+  overlay.classList.add('active');
+  toggleBtn.setAttribute('aria-expanded', 'true');
+}
+function closeModal() {
+  overlay.classList.remove('active');
+  toggleBtn.setAttribute('aria-expanded', 'false');
+}
+toggleBtn.addEventListener('click', openModal);
+closeBtn.addEventListener('click', closeModal);
+overlay.addEventListener('click', (e) => {
+  if (e.target === overlay) closeModal();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeModal();
+});
+
 const container = document.getElementById('donut-container');
 const frostingMain = document.getElementById('frosting-main');
 const cinnamonOverlay = document.getElementById('cinnamon-overlay');
