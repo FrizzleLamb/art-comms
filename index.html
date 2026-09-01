@@ -97,9 +97,8 @@
   .donut-toggle {
     width: 68px;
     height: 68px;
-    border-radius: 50%;
-    background: #fdf6e3;
-    border: 2px solid #e8c873;
+    background: none;
+    border: none;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -108,7 +107,6 @@
     transition: background 0.15s, border-color 0.15s, transform 0.15s;
   }
   .donut-toggle:hover {
-    background: #f7ecc8;
     transform: scale(1.05);
   }
   .donut-toggle .emoji {
@@ -502,7 +500,7 @@
   </div>
 </div>
 <div id="time-wasted">time wasted since you opened this website: 00:00:00</div>
-<p id="version-tag">v1.5</p>
+<p id="version-tag">v1.6</p>
 <script>
 const toggleBtn = document.getElementById('donut-toggle-btn');
 const closeBtn = document.getElementById('donut-close-btn');
