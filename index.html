@@ -6,14 +6,14 @@
 <link rel="icon" type="image/png" href="favicon.png">
 <title>FrizzleLamb's Socials & Commissions</title>
 <meta property="og:title" content="FrizzleLamb's Socials & Commissions">
-<meta property="og:description" content="Commission info and social links for FrizzleLamb">
+<meta property="og:description" content="pay me to draw you PLEASE">
 <meta property="og:image" content="https://frizzlelamb.github.io/preview.png">
 <meta property="og:url" content="https://frizzlelamb.github.io/">
 <meta property="og:type" content="website">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="FrizzleLamb's Socials & Commissions">
-<meta name="twitter:description" content="Commission info and social links for FrizzleLamb">
+<meta name="twitter:description" content="pay me to draw you PLEASE">
 <meta name="twitter:image" content="https://frizzlelamb.github.io/preview.png">
 <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
 <style>
@@ -693,6 +693,14 @@ sendBtn.addEventListener('click', async () => {
     sendBtn.disabled = false;
   }
 });
+
+document.querySelectorAll('a').forEach(link => {
+    // Checks if the link goes to an external website
+    if (link.hostname !== window.location.hostname) {
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+    }
+  });
 </script>
 </body>
 </html>
