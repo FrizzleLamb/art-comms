@@ -4,16 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="favicon.png">
-<title>FrizzleLamb's Socials & Commissions</title>
-<meta property="og:title" content="FrizzleLamb's Socials & Commissions">
-<meta property="og:description" content="pay me to draw you PLEASE">
+<title>FrizzleLamb's Coop</title>
+<meta property="og:title" content="FrizzleLamb's Coop">
+<meta property="og:description" content="commission me pls">
 <meta property="og:image" content="https://frizzlelamb.github.io/preview.png">
 <meta property="og:url" content="https://frizzlelamb.github.io/">
 <meta property="og:type" content="website">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="FrizzleLamb's Socials & Commissions">
-<meta name="twitter:description" content="pay me to draw you PLEASE">
+<meta name="twitter:title" content="FrizzleLamb's Coop">
+<meta name="twitter:description" content="commission me please">
 <meta name="twitter:image" content="https://frizzlelamb.github.io/preview.png">
 <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
 <style>
@@ -418,23 +418,23 @@
 <body>
 <div class="header">
   <h1>@FrizzleLamb</h1>
-  <p>Hello! I'm FrizzleLamb. I like to do digital art and eat cheesecakes.</p>
+  <p>hello! i'm frizzle. i like to draw digital art and eat cheesecakes.</p>
 </div>
 <div class="links-section">
   <div class="link-group">
     <span class="label">where you can commission</span>
     <div class="link-row">
-      <a href="https://vgen.co/FrizzleLamb">vgen</a>
-      <a href="https://ko-fi.com/frizzlelamb">ko-fi</a>
-      <a href="https://paypal.me/frizzleshillings">paypal</a>
+      <a href="https://vgen.co/FrizzleLamb" target="_blank" rel="noopener noreferrer">vgen</a>
+      <a href="https://ko-fi.com/frizzlelamb" target="_blank" rel="noopener noreferrer">ko-fi</a>
+      <a href="https://paypal.me/frizzleshillings" target="_blank" rel="noopener noreferrer">paypal</a>
     </div>
   </div>
   <div class="link-group">
     <span class="label">where i post art</span>
     <div class="link-row">
-      <a href="https://x.com/FrizzleLamb">twitter</a>
-      <a href="https://bsky.app/profile/frizzlelamb.bsky.social">bluesky</a>
-      <a href="https://www.pixiv.net/en/users/65300551">pixiv</a>
+      <a href="https://x.com/FrizzleLamb" target="_blank" rel="noopener noreferrer">twitter</a>
+      <a href="https://bsky.app/profile/frizzlelamb.bsky.social" target="_blank" rel="noopener noreferrer">bluesky</a>
+      <a href="https://www.pixiv.net/en/users/65300551" target="_blank" rel="noopener noreferrer">pixiv</a>
     </div>
   </div>
 </div>
@@ -511,6 +511,11 @@
 </div>
 <div id="time-wasted">time wasted since you opened this website: 00:00:00</div>
 <p id="version-tag">v1.5</p>
+
+<audio id="hover-sound" src="sounds/hover.mp3" preload="auto"></audio>
+<audio id="click-sound" src="sounds/click.mp3" preload="auto"></audio>
+<audio id="close-sound" src="sounds/close.mp3" preload="auto"></audio>
+
 <script>
 const toggleBtn = document.getElementById('donut-toggle-btn');
 const closeBtn = document.getElementById('donut-close-btn');
@@ -520,6 +525,7 @@ function openModal() {
   toggleBtn.setAttribute('aria-expanded', 'true');
 }
 function closeModal() {
+  playSound(closeSound);
   overlay.classList.remove('active');
   toggleBtn.setAttribute('aria-expanded', 'false');
 }
@@ -656,7 +662,7 @@ const noteTextarea = document.getElementById('note-textarea');
 sendBtn.addEventListener('click', async () => {
   statusEl.classList.remove('error');
   if (WEB3FORMS_ACCESS_KEY === "PASTE_YOUR_WEB3FORMS_ACCESS_KEY_HERE") {
-    statusEl.textContent = "the site owner hasn't finished setting this up yet, sorry!";
+    statusEl.textContent = "i haven't finished setting this up yet, sorry!";
     statusEl.classList.add('error');
     return;
   }
@@ -694,13 +700,26 @@ sendBtn.addEventListener('click', async () => {
   }
 });
 
-document.querySelectorAll('a').forEach(link => {
-    // Checks if the link goes to an external website
-    if (link.hostname !== window.location.hostname) {
-      link.target = '_blank';
-      link.rel = 'noopener noreferrer';
-    }
-  });
+const hoverSound = document.getElementById('hover-sound');
+const clickSound = document.getElementById('click-sound');
+const closeSound = document.getElementById('close-sound');
+hoverSound.volume = 0.35;
+clickSound.volume = 0.5;
+closeSound.volume = 0.5;
+
+function playSound(audioEl) {
+  const clone = audioEl.cloneNode();
+  clone.volume = audioEl.volume;
+  clone.play().catch(() => {}); // ignore if browser blocks it
+}
+
+const interactiveEls = document.querySelectorAll(
+  '.donut-toggle, .option-btn, #send-note-btn, .clear-mini-btn, .link-row a'
+);
+interactiveEls.forEach(el => {
+  el.addEventListener('mouseenter', () => playSound(hoverSound));
+  el.addEventListener('click', () => playSound(clickSound));
+});
 </script>
 </body>
 </html>
