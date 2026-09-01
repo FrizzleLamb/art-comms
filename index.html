@@ -25,8 +25,10 @@
       radial-gradient(#6fd4c7 15%, transparent 16%),
       radial-gradient(ellipse 120% 20% at bottom, #5cc9bb 0%, transparent 100%);
     background-size: 40px 40px, 100% 100%;
+    background-position: 0 0, 0 0;
     background-color: #83E1D7;
     background-attachment: fixed;
+    transition: background-position 0.2s ease-out;
     gap: 40px;
     font-family: "Comic Sans MS", "Comic Sans";
   }
@@ -87,7 +89,7 @@
     border-color: #6b9b63;
     transform: translateY(-2px);
   }
-  /* divider between links and donut sections */
+  /* divider bw links and donut sections */
   .divider {
     width: 100%;
     max-width: 500px;
@@ -95,7 +97,6 @@
     border-top: 2px dashed #5cb8a9;
     opacity: 0.6;
   }
-
   /* donut toggle */
   .donut-toggle {
     width: 68px;
@@ -119,7 +120,6 @@
     line-height: 1;
     display: block;
   }
-
   /* donut overlay */
   .modal-overlay {
     position: fixed;
@@ -177,7 +177,6 @@
     color: #6b5423;
     margin: 0 0 16px;
   }
-
   .panel-content {
     display: flex;
     align-items: flex-start;
@@ -185,7 +184,6 @@
     gap: 28px;
     flex-wrap: wrap;
   }
-
   /* donut */
   #donut-container {
     position: relative;
@@ -208,7 +206,7 @@
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background: #f2a570;
+    background: #f2b070;
     box-shadow: inset 0 0 22px rgba(0, 0, 0, 0.25);
     position: relative;
   }
@@ -236,7 +234,6 @@
   .sprinkle.pebble {
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
   }
-
   /* controls beside the donut */
   .recipe-content {
     width: 150px;
@@ -295,7 +292,69 @@
     color: #4a3a10;
     font-weight: bold;
   }
-
+  /* send notes */
+  .send-section {
+    width: 100%;
+    max-width: 420px;
+    margin-top: 4px;
+    border-top: 2px dashed #e8c873;
+    padding-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+  .send-section span.label {
+    font-size: 12px;
+    color: #6b5423;
+    font-weight: bold;
+    align-self: flex-start;
+  }
+  #note-textarea {
+    width: 100%;
+    min-height: 60px;
+    resize: vertical;
+    border: 2px solid #e8c873;
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-family: inherit;
+    font-size: 13px;
+    color: #4a3a10;
+    background: #fffaf0;
+  }
+  #note-textarea:focus {
+    outline: none;
+    border-color: #d4a017;
+  }
+  #send-note-btn {
+    padding: 8px 18px;
+    border: 2px solid #d4a017;
+    border-radius: 8px;
+    background: #f2dd97;
+    color: #4a3a10;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 13px;
+    font-family: inherit;
+    transition: background 0.15s, transform 0.15s;
+  }
+  #send-note-btn:hover:not(:disabled) {
+    background: #e8c873;
+    transform: translateY(-1px);
+  }
+  #send-note-btn:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+  #send-status {
+    font-size: 12px;
+    color: #0a5c40;
+    min-height: 14px;
+    text-align: center;
+  }
+  #send-status.error {
+    color: #c0392b;
+  }
   /* timer */
   #time-wasted {
     position: fixed;
@@ -309,7 +368,6 @@
     text-align: center;
     padding: 0 12px;
   }
-
   /* mobile fix */
   @media (max-width: 700px) {
     body {
@@ -366,7 +424,6 @@
 <button id="donut-toggle-btn" class="donut-toggle" aria-label="design this donut" aria-haspopup="dialog" aria-expanded="false">
   <span class="emoji" aria-hidden="true">🍩</span>
 </button>
-
 <!-- popup for the donut -->
 <div id="donut-modal-overlay" class="modal-overlay">
   <div class="donut-modal" role="dialog" aria-modal="true" aria-label="design this donut">
@@ -394,7 +451,7 @@
     <circle cx="4.5" cy="4.5" r="0.9" fill="rgba(80,45,15,0.55)" />
   </pattern>
 </defs>
-<circle id="frosting-main" cx="150" cy="150" r="140" fill="#ff8fc7" fill-opacity="1" filter="url(#squiggly)" />
+<circle id="frosting-main" cx="150" cy="150" r="140" fill="#ffabb6" fill-opacity="1" filter="url(#squiggly)" />
 <circle id="cinnamon-overlay" cx="150" cy="150" r="140" fill="url(#cinnamon-dots)" filter="url(#squiggly)" opacity="0" pointer-events="none" />
 <circle cx="150" cy="150" r="140" fill="url(#frosting-shadow-gradient)" filter="url(#squiggly)" pointer-events="none" />
 <circle cx="50%" cy="50%" r="12%" fill="url(#inner-hole-shadow)" filter="url(#squiggly)" pointer-events="none" />
@@ -403,7 +460,7 @@
       <div class="recipe-content">
         <div class="control-group">
           <span class="label">frosting</span>
-          <button class="option-btn active" data-frosting="#ff8fc7">strawberry</button>
+          <button class="option-btn active" data-frosting="#ffabb6">strawberry</button>
           <button class="option-btn" data-frosting="#6b3f2a">chocolate</button>
           <button class="option-btn" data-frosting="#fbeeda">vanilla</button>
           <button class="option-btn" data-frosting="#fff8f0" data-opacity="0.3">glazed</button>
@@ -421,22 +478,27 @@
         </div>
         <div class="control-group">
           <span class="label">dough</span>
-          <button class="option-btn active" data-dough="#f2a570">regular</button>
+          <button class="option-btn active" data-dough="#f2b070">regular</button>
           <button class="option-btn" data-dough="#4e321d">chocolate</button>
           <button class="option-btn" data-dough="#8c211d">red velvet</button>
         </div>
       </div>
     </div>
+    <div class="send-section">
+      <span class="label">send this donut + a note to me!</span>
+      <textarea id="note-textarea" placeholder="say hi, request something, whatever you want..."></textarea>
+      <button id="send-note-btn">send it!</button>
+      <div id="send-status"></div>
+    </div>
   </div>
 </div>
-
-<div id="time-wasted">time wasted since you opened this website: 00:00:00 - version 1.4</div>
+<div id="time-wasted">time wasted since you opened this website: 00:00:00 - version 1.5</div>
 <!-- le toppings -->
 <script>
+/* ---------- modal open/close ---------- */
 const toggleBtn = document.getElementById('donut-toggle-btn');
 const closeBtn = document.getElementById('donut-close-btn');
 const overlay = document.getElementById('donut-modal-overlay');
-
 function openModal() {
   overlay.classList.add('active');
   toggleBtn.setAttribute('aria-expanded', 'true');
@@ -454,10 +516,30 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') closeModal();
 });
 
+/* ---------- cursor parallax background ---------- */
+let targetX = 0, targetY = 0, currentX = 0, currentY = 0;
+const PARALLAX_MAX = 16; // max px shift, keep subtle
+document.addEventListener('mousemove', (e) => {
+  const xRatio = (e.clientX / window.innerWidth - 0.5) * 2;  // -1 to 1
+  const yRatio = (e.clientY / window.innerHeight - 0.5) * 2; // -1 to 1
+  targetX = xRatio * PARALLAX_MAX;
+  targetY = yRatio * PARALLAX_MAX;
+});
+function parallaxLoop() {
+  // ease toward target for a smoother "3D" drift
+  currentX += (targetX - currentX) * 0.08;
+  currentY += (targetY - currentY) * 0.08;
+  document.body.style.backgroundPosition = `${currentX}px ${currentY}px, 0 0`;
+  requestAnimationFrame(parallaxLoop);
+}
+requestAnimationFrame(parallaxLoop);
+
+/* ---------- donut state ---------- */
 const container = document.getElementById('donut-container');
+const donutEl = document.getElementById('donut');
 const frostingMain = document.getElementById('frosting-main');
 const cinnamonOverlay = document.getElementById('cinnamon-overlay');
-const colors = ['#f7f4f4', '#fff562', '#2799d8', '#39a126', '#e7484c', '#ff741a', '#402626', '#ff4fa7',];
+const colors = ['#f7f4f4', '#fff562', '#2799d8', '#39a126', '#e7484c', '#ff741a', '#402626', '#ff4fa7'];
 const chocolateColors = ['#6b3f2a', '#4e321d', '#7a4a2a', '#3d2415', '#8b5a2b'];
 const pebbleShapes = [
   '40% 60% 55% 45% / 50% 45% 55% 50%',
@@ -466,13 +548,23 @@ const pebbleShapes = [
   '35% 65% 40% 60% / 60% 40% 65% 35%'
 ];
 let currentShape = 'long';
+let currentFrostingColor = '#ffabb6';
+let currentFrostingOpacity = 1;
+let currentCinnamon = false;
+let currentDoughColor = '#f2b070';
+// data model so we can redraw the donut onto a canvas for the email attachment
+let sprinkleData = []; // { xPct, yPct, type, color, rotation, size, ratio, radius }
+
 document.querySelectorAll('[data-frosting]').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('[data-frosting]').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    frostingMain.setAttribute('fill', btn.dataset.frosting);
-    frostingMain.setAttribute('fill-opacity', btn.dataset.opacity || 1);
-    cinnamonOverlay.setAttribute('opacity', btn.dataset.cinnamon ? 1 : 0);
+    currentFrostingColor = btn.dataset.frosting;
+    currentFrostingOpacity = btn.dataset.opacity || 1;
+    currentCinnamon = !!btn.dataset.cinnamon;
+    frostingMain.setAttribute('fill', currentFrostingColor);
+    frostingMain.setAttribute('fill-opacity', currentFrostingOpacity);
+    cinnamonOverlay.setAttribute('opacity', currentCinnamon ? 1 : 0);
   });
 });
 document.querySelectorAll('[data-shape]').forEach(btn => {
@@ -482,6 +574,15 @@ document.querySelectorAll('[data-shape]').forEach(btn => {
     currentShape = btn.dataset.shape;
   });
 });
+document.querySelectorAll('[data-dough]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('[data-dough]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentDoughColor = btn.dataset.dough;
+    donutEl.style.background = currentDoughColor;
+  });
+});
+
 container.addEventListener('click', (e) => {
   const rect = container.getBoundingClientRect();
   const x = e.clientX - rect.left;
@@ -510,28 +611,55 @@ container.addEventListener('click', (e) => {
     const sprinkle = document.createElement('div');
     sprinkle.style.left = `${offsetX}px`;
     sprinkle.style.top = `${offsetY}px`;
+
+    let record = { xPct: offsetX / rect.width, yPct: offsetY / rect.height, type: currentShape };
+
     if (currentShape === 'dot') {
       sprinkle.className = 'sprinkle dot';
-      sprinkle.style.background = colors[Math.floor(Math.random() * colors.length)];
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      sprinkle.style.background = color;
+      record.color = color;
     } else if (currentShape === 'pebble') {
       sprinkle.className = 'sprinkle pebble';
-      sprinkle.style.background = colors[Math.floor(Math.random() * colors.length)];
-      sprinkle.style.borderRadius = pebbleShapes[Math.floor(Math.random() * pebbleShapes.length)];
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      const radius = pebbleShapes[Math.floor(Math.random() * pebbleShapes.length)];
       const size = 9 + Math.random() * 5;
+      const ratio = 0.75 + Math.random() * 0.4;
+      sprinkle.style.background = color;
+      sprinkle.style.borderRadius = radius;
       sprinkle.style.width = `${size}px`;
-      sprinkle.style.height = `${size * (0.75 + Math.random() * 0.4)}px`;
+      sprinkle.style.height = `${size * ratio}px`;
+      record.color = color;
+      record.size = size;
+      record.ratio = ratio;
     } else if (currentShape === 'jimmies') {
       sprinkle.className = 'sprinkle';
-      sprinkle.style.background = chocolateColors[Math.floor(Math.random() * chocolateColors.length)];
-      sprinkle.style.transform = `rotate(${Math.random() * 360}deg)`;
+      const color = chocolateColors[Math.floor(Math.random() * chocolateColors.length)];
+      const rotation = Math.random() * 360;
+      sprinkle.style.background = color;
+      sprinkle.style.transform = `rotate(${rotation}deg)`;
+      record.color = color;
+      record.rotation = rotation;
     } else {
       sprinkle.className = 'sprinkle';
-      sprinkle.style.background = colors[Math.floor(Math.random() * colors.length)];
-      sprinkle.style.transform = `rotate(${Math.random() * 360}deg)`;
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      const rotation = Math.random() * 360;
+      sprinkle.style.background = color;
+      sprinkle.style.transform = `rotate(${rotation}deg)`;
+      record.color = color;
+      record.rotation = rotation;
     }
     container.appendChild(sprinkle);
+    sprinkleData.push(record);
   }
 });
+
+document.getElementById('clear-btn').addEventListener('click', () => {
+  document.querySelectorAll('.sprinkle').forEach(s => s.remove());
+  sprinkleData = [];
+});
+
+/* ---------- timer ---------- */
 const startTime = Date.now();
 const timeWastedEl = document.getElementById('time-wasted');
 function updateTimer() {
@@ -541,19 +669,134 @@ function updateTimer() {
   const minutes = Math.floor((totalSeconds % 3600) / 60);
   const seconds = totalSeconds % 60;
   const pad = (num) => String(num).padStart(2, '0');
-  timeWastedEl.textContent = `time wasted since you opened this website: ${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+  timeWastedEl.textContent = `time wasted since you opened this website: ${pad(hours)}:${pad(minutes)}:${pad(seconds)} - version 1.5`;
 }
 setInterval(updateTimer, 1000);
-const donut = document.getElementById('donut');
-document.querySelectorAll('[data-dough]').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('[data-dough]').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    donut.style.background = btn.dataset.dough;
+
+/* ---------- render donut to canvas (for the emailed image) ---------- */
+function renderDonutToCanvas() {
+  const SIZE = 440; // 2x the on-screen size for a crisper image
+  const canvas = document.createElement('canvas');
+  canvas.width = SIZE;
+  canvas.height = SIZE;
+  const ctx = canvas.getContext('2d');
+  const cx = SIZE / 2, cy = SIZE / 2, r = SIZE / 2;
+
+  // dough base
+  ctx.beginPath();
+  ctx.arc(cx, cy, r, 0, Math.PI * 2);
+  ctx.fillStyle = currentDoughColor;
+  ctx.fill();
+
+  // frosting layer
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(cx, cy, r, 0, Math.PI * 2);
+  ctx.clip();
+  ctx.globalAlpha = Number(currentFrostingOpacity);
+  ctx.fillStyle = currentFrostingColor;
+  ctx.fill();
+  ctx.globalAlpha = 1;
+
+  // cinnamon dots
+  if (currentCinnamon) {
+    ctx.fillStyle = 'rgba(80,45,15,0.55)';
+    for (let gy = 0; gy < SIZE; gy += 18) {
+      for (let gx = 0; gx < SIZE; gx += 18) {
+        ctx.beginPath();
+        ctx.arc(gx, gy, 1.8, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+  }
+  ctx.restore();
+
+  // sprinkles
+  sprinkleData.forEach(s => {
+    const x = s.xPct * SIZE;
+    const y = s.yPct * SIZE;
+    ctx.save();
+    ctx.translate(x, y);
+    if (s.rotation) ctx.rotate((s.rotation * Math.PI) / 180);
+    ctx.fillStyle = s.color;
+    if (s.type === 'dot') {
+      ctx.beginPath();
+      ctx.arc(0, 0, 8, 0, Math.PI * 2);
+      ctx.fill();
+    } else if (s.type === 'pebble') {
+      const w = (s.size || 12);
+      const h = w * (s.ratio || 0.9);
+      ctx.beginPath();
+      ctx.ellipse(0, 0, w / 2, h / 2, 0, 0, Math.PI * 2);
+      ctx.fill();
+    } else {
+      // long sprinkle or jimmie
+      const w = 8, h = 34;
+      ctx.fillRect(-w / 2, -h / 2, w, h);
+    }
+    ctx.restore();
   });
-});
-document.getElementById('clear-btn').addEventListener('click', () => {
-  document.querySelectorAll('.sprinkle').forEach(s => s.remove());
+
+  // donut hole cutout
+  ctx.save();
+  ctx.globalCompositeOperation = 'destination-out';
+  ctx.beginPath();
+  ctx.arc(cx, cy, r * 0.19, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+
+  return canvas;
+}
+
+/* note + donut to email via Web3Forms */
+const WEB3FORMS_ACCESS_KEY = "1a4b9717-8771-4729-b69e-6644da7e0f42";
+
+const sendBtn = document.getElementById('send-note-btn');
+const statusEl = document.getElementById('send-status');
+const noteTextarea = document.getElementById('note-textarea');
+
+sendBtn.addEventListener('click', async () => {
+  statusEl.classList.remove('error');
+  if (WEB3FORMS_ACCESS_KEY === "PASTE_YOUR_WEB3FORMS_ACCESS_KEY_HERE") {
+    statusEl.textContent = "the site owner hasn't finished setting this up yet, sorry!";
+    statusEl.classList.add('error');
+    return;
+  }
+  sendBtn.disabled = true;
+  statusEl.textContent = "sending...";
+
+  try {
+    const canvas = renderDonutToCanvas();
+    const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+
+    const formData = new FormData();
+    formData.append('access_key', WEB3FORMS_ACCESS_KEY);
+    formData.append('subject', 'A donut + note from your website!');
+    formData.append('message', noteTextarea.value || '(no note included)');
+    formData.append('dough', currentDoughColor);
+    formData.append('frosting', currentFrostingColor);
+    formData.append('topping_style', currentShape);
+    formData.append('attachment', blob, 'donut-design.png');
+
+    const response = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      body: formData
+    });
+    const result = await response.json();
+
+    if (result.success) {
+      statusEl.textContent = "sent! thank you 🍩";
+      noteTextarea.value = '';
+    } else {
+      statusEl.textContent = "hmm, something went wrong. try again?";
+      statusEl.classList.add('error');
+    }
+  } catch (err) {
+    statusEl.textContent = "hmm, something went wrong. try again?";
+    statusEl.classList.add('error');
+  } finally {
+    sendBtn.disabled = false;
+  }
 });
 </script>
 </body>
